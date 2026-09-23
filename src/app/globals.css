@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-urdu: var(--font-naskh), "Noto Naskh Arabic", "Segoe UI", sans-serif;
+
+  --color-brand-50: #f1f9f4;
+  --color-brand-100: #dcf1e4;
+  --color-brand-200: #bbe3cb;
+  --color-brand-300: #8bcda8;
+  --color-brand-400: #55b17f;
+  --color-brand-500: #319665;
+  --color-brand-600: #217b50;
+  --color-brand-700: #1b6242;
+  --color-brand-800: #164e36;
+  --color-brand-900: #123f2c;
+  --color-gold-100: #f8efd6;
+  --color-gold-500: #c39a2f;
+  --color-gold-700: #8a6a14;
+
+  --radius-card: 0.875rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: #f6f7f5;
+  color: #1c2b24;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Urdu: Naskh first, Latin digits/names fall back to Inter */
+html[lang="ur"] body {
+  font-family: var(--font-urdu), var(--font-inter), sans-serif;
+  line-height: 1.7;
+}
+html[lang="ur"] .tabular,
+html[lang="ur"] input[type="number"],
+html[lang="ur"] input[type="date"],
+html[lang="ur"] input[type="tel"] {
+  font-family: var(--font-inter), sans-serif;
+}
+
+/* Numbers, phone numbers, IDs and dates stay left-to-right and readable */
+.ltr-text {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
+input[type="tel"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+input[type="password"].ltr {
+  direction: ltr;
+}
+html[dir="rtl"] input[type="tel"],
+html[dir="rtl"] input[type="email"] {
+  text-align: right;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+}
+
+.scroll-thin::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: #cfd8d2;
+  border-radius: 999px;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+.animate-fade-in {
+  animation: fade-in 0.18s ease-out;
+}
+
+/* ---------- Printing ---------- */
+#print-root {
+  display: none;
+}
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+  body {
+    background: #fff !important;
+  }
+  body > *:not(#print-root) {
+    display: none !important;
+  }
+  #print-root {
+    display: block !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-landscape-hint {
+    display: none;
+  }
+}
